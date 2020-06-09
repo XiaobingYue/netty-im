@@ -35,6 +35,12 @@ public class Start {
                         nioSocketChannel.pipeline().addLast(new ServerHandler());
                     }
                 });
-        ChannelFuture future = serverBootstrap.bind(9999).sync();
+        serverBootstrap.bind(9999).sync().addListener(future -> {
+            if (future.isSuccess()) {
+                System.out.println("服务端启动成功");
+            } else {
+                System.out.println("服务端启动失败");
+            }
+        });
     }
 }
