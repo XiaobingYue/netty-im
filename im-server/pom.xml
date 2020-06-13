@@ -13,8 +13,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-all</artifactId>
+            <groupId>com.yxb</groupId>
+            <artifactId>im-core</artifactId>
         </dependency>
     </dependencies>
 

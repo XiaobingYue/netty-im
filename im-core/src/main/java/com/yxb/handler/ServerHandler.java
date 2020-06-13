@@ -41,6 +41,10 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         System.out.println("channelRead...");
         ByteBuf byteBuf = (ByteBuf) msg;
         System.out.println("接收到数据 -> "+byteBuf.toString(StandardCharsets.UTF_8));
+        System.out.println("向客户端响应数据...");
+        ByteBuf sendBuf = ctx.alloc().buffer();
+        sendBuf.writeBytes("你好客户端...".getBytes(StandardCharsets.UTF_8));
+        ctx.channel().writeAndFlush(sendBuf);
         super.channelRead(ctx, msg);
     }
 
