@@ -2,12 +2,12 @@ package com.yxb;
 
 import com.yxb.codec.PacketDecoder;
 import com.yxb.codec.PacketEncoder;
+import com.yxb.console.ConsoleCommandManager;
+import com.yxb.console.LoginConsoleCommand;
 import com.yxb.handler.Spliter;
+import com.yxb.handler.resp.CreateGroupRespHandler;
 import com.yxb.handler.resp.LoginRespHandler;
 import com.yxb.handler.resp.MsgRespHandler;
-import com.yxb.protocol.req.LoginReqPackage;
-import com.yxb.protocol.req.MsgReqPacket;
-import com.yxb.session.Session;
 import com.yxb.util.SessionUtil;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
@@ -19,7 +19,6 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
 import java.util.Scanner;
-import java.util.UUID;
 
 /**
  * @author yxb
@@ -42,6 +41,7 @@ public class Start {
                         socketChannel.pipeline().addLast(new PacketDecoder());
                         socketChannel.pipeline().addLast(new LoginRespHandler());
                         socketChannel.pipeline().addLast(new MsgRespHandler());
+                        socketChannel.pipeline().addLast(new CreateGroupRespHandler());
                         socketChannel.pipeline().addLast(new PacketEncoder());
                     }
                 });
@@ -59,27 +59,15 @@ public class Start {
 
     private static void startConsoleInput(Channel channel) {
         Scanner sc = new Scanner(System.in);
+        ConsoleCommandManager consoleCommandManager = new ConsoleCommandManager();
+        LoginConsoleCommand loginConsoleCommand = new LoginConsoleCommand();
         new Thread(() -> {
             while (!Thread.interrupted()) {
                 if (SessionUtil.hasLogin(channel)) {
-                    System.out.println("请输入对方id: ");
-                    String toUserId = sc.next();
-                    System.out.println("请输入消息：");
-                    String message = sc.next();
-                    channel.writeAndFlush(new MsgReqPacket(message,toUserId));
+                    consoleCommandManager.exec(sc, channel);
                 } else {
                     // 登陆
-                    LoginReqPackage loginReqPackage = new LoginReqPackage();
-                    System.out.println("请输入您的昵称");
-                    String nickName = sc.next();
-                    loginReqPackage.setUsername(nickName);
-                    loginReqPackage.setUserId(UUID.randomUUID().toString().replaceAll("-",""));
-                    channel.writeAndFlush(loginReqPackage);
-                    try {
-                        Thread.sleep(3000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    loginConsoleCommand.exec(sc,channel);
                 }
             }
         }).start();
