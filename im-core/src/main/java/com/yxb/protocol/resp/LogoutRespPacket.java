@@ -1,4 +1,4 @@
-package com.yxb.protocol.req;
+package com.yxb.protocol.resp;
 
 import com.yxb.protocol.Command;
 import com.yxb.protocol.Packet;
@@ -7,15 +7,14 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class LoginReqPackage extends Packet {
+public class LogoutRespPacket extends Packet {
 
-    private String userId;
+    private boolean success;
 
-    private String username;
+    private String reason;
 
-    private String password;
     @Override
     public Byte getCommand() {
-        return Command.LOGIN_REQUEST.getType();
+        return Command.LOGOUT_RESP.getType();
     }
 }

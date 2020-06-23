@@ -6,6 +6,7 @@ import com.yxb.handler.AuthHandler;
 import com.yxb.handler.Spliter;
 import com.yxb.handler.req.CreateGroupReqHandler;
 import com.yxb.handler.req.LoginRequestHandler;
+import com.yxb.handler.req.LogoutReqHandler;
 import com.yxb.handler.req.MsgRequestHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
@@ -41,8 +42,9 @@ public class Start {
                     protected void initChannel(NioSocketChannel nioSocketChannel) {
                         nioSocketChannel.pipeline().addLast(new Spliter());
                         nioSocketChannel.pipeline().addLast(new PacketDecoder());
-                        nioSocketChannel.pipeline().addLast(new LoginRequestHandler());
-                        nioSocketChannel.pipeline().addLast(new AuthHandler());
+                        nioSocketChannel.pipeline().addLast("loginRequestHandler",new LoginRequestHandler());
+                        nioSocketChannel.pipeline().addLast("authHandler",new AuthHandler());
+                        nioSocketChannel.pipeline().addLast("logoutReqHandler",new LogoutReqHandler());
                         nioSocketChannel.pipeline().addLast(new MsgRequestHandler());
                         nioSocketChannel.pipeline().addLast(new CreateGroupReqHandler());
                         nioSocketChannel.pipeline().addLast(new PacketEncoder());

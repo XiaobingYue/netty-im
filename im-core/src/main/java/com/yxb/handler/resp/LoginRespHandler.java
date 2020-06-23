@@ -1,13 +1,11 @@
 package com.yxb.handler.resp;
 
-import com.yxb.protocol.req.LoginReqPackage;
+import com.yxb.attribute.Attributes;
 import com.yxb.protocol.resp.LoginRespPacket;
 import com.yxb.session.Session;
 import com.yxb.util.SessionUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-
-import java.util.UUID;
 
 public class LoginRespHandler extends SimpleChannelInboundHandler<LoginRespPacket> {
 

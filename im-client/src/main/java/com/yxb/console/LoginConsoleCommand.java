@@ -1,6 +1,7 @@
 package com.yxb.console;
 
-import com.yxb.protocol.req.LoginReqPackage;
+import com.yxb.attribute.Attributes;
+import com.yxb.protocol.req.LoginReqPacket;
 import io.netty.channel.Channel;
 
 import java.util.Scanner;
@@ -10,12 +11,12 @@ public class LoginConsoleCommand implements ConsoleCommand {
 
     @Override
     public void exec(Scanner sc, Channel channel) {
-        LoginReqPackage loginReqPackage = new LoginReqPackage();
+        LoginReqPacket loginReqPacket = new LoginReqPacket();
         System.out.println("请输入您的昵称");
         String nickName = sc.next();
-        loginReqPackage.setUsername(nickName);
-        loginReqPackage.setUserId(UUID.randomUUID().toString().replaceAll("-",""));
-        channel.writeAndFlush(loginReqPackage);
+        loginReqPacket.setUsername(nickName);
+        loginReqPacket.setUserId(UUID.randomUUID().toString().replaceAll("-",""));
+        channel.writeAndFlush(loginReqPacket);
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
