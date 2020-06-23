@@ -1,13 +1,7 @@
 package com.yxb.protocol;
 
-import com.yxb.protocol.req.CreateGroupRequestPacket;
-import com.yxb.protocol.req.LoginReqPacket;
-import com.yxb.protocol.req.LogoutReqPacket;
-import com.yxb.protocol.req.MsgReqPacket;
-import com.yxb.protocol.resp.CreateGroupRespPacket;
-import com.yxb.protocol.resp.LoginRespPacket;
-import com.yxb.protocol.resp.LogoutRespPacket;
-import com.yxb.protocol.resp.MsgRespPacket;
+import com.yxb.protocol.req.*;
+import com.yxb.protocol.resp.*;
 import lombok.Getter;
 
 @Getter
@@ -19,7 +13,9 @@ public enum  Command {
     CREATE_GROUP_REQ((byte) 5, CreateGroupRequestPacket.class),
     CREATE_GROUP_RESP((byte) 6, CreateGroupRespPacket.class),
     LOGOUT_REQ((byte) 7, LogoutReqPacket.class),
-    LOGOUT_RESP((byte) 8, LogoutRespPacket.class);
+    LOGOUT_RESP((byte) 8, LogoutRespPacket.class),
+    JOIN_GROUP_REQ((byte) 9, JoinGroupReqPacket.class),
+    JOIN_GROUP_RESP((byte) 10, JoinGroupRespPacket.class);
 
     private byte type;
 

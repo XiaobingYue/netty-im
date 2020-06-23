@@ -4,10 +4,7 @@ import com.yxb.codec.PacketDecoder;
 import com.yxb.codec.PacketEncoder;
 import com.yxb.handler.AuthHandler;
 import com.yxb.handler.Spliter;
-import com.yxb.handler.req.CreateGroupReqHandler;
-import com.yxb.handler.req.LoginRequestHandler;
-import com.yxb.handler.req.LogoutReqHandler;
-import com.yxb.handler.req.MsgRequestHandler;
+import com.yxb.handler.req.*;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -47,6 +44,7 @@ public class Start {
                         nioSocketChannel.pipeline().addLast("logoutReqHandler",new LogoutReqHandler());
                         nioSocketChannel.pipeline().addLast(new MsgRequestHandler());
                         nioSocketChannel.pipeline().addLast(new CreateGroupReqHandler());
+                        nioSocketChannel.pipeline().addLast(new JoinGroupReqHandler());
                         nioSocketChannel.pipeline().addLast(new PacketEncoder());
                     }
                 });

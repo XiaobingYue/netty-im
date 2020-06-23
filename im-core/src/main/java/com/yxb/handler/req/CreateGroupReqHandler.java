@@ -38,6 +38,7 @@ public class CreateGroupReqHandler extends SimpleChannelInboundHandler<CreateGro
 
         // 4. 给每个客户端发送拉群通知
         channelGroup.writeAndFlush(createGroupResponsePacket);
+        SessionUtil.bindChannelGroup(createGroupResponsePacket.getGroupId(),channelGroup);
         System.out.print("群创建成功，id 为[" + createGroupResponsePacket.getGroupId() + "], ");
         System.out.println("群里面有：" + createGroupResponsePacket.getUserNameList());
 

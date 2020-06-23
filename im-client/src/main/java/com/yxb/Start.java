@@ -6,10 +6,7 @@ import com.yxb.codec.PacketEncoder;
 import com.yxb.console.ConsoleCommandManager;
 import com.yxb.console.LoginConsoleCommand;
 import com.yxb.handler.Spliter;
-import com.yxb.handler.resp.CreateGroupRespHandler;
-import com.yxb.handler.resp.LoginRespHandler;
-import com.yxb.handler.resp.LogoutRespHandler;
-import com.yxb.handler.resp.MsgRespHandler;
+import com.yxb.handler.resp.*;
 import com.yxb.util.SessionUtil;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
@@ -45,6 +42,7 @@ public class Start {
                         socketChannel.pipeline().addLast(new LogoutRespHandler());
                         socketChannel.pipeline().addLast(new MsgRespHandler());
                         socketChannel.pipeline().addLast(new CreateGroupRespHandler());
+                        socketChannel.pipeline().addLast(new JoinGroupRespHandler());
                         socketChannel.pipeline().addLast(new PacketEncoder());
                     }
                 });
