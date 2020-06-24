@@ -45,6 +45,8 @@ public class Start {
                         nioSocketChannel.pipeline().addLast(new MsgRequestHandler());
                         nioSocketChannel.pipeline().addLast(new CreateGroupReqHandler());
                         nioSocketChannel.pipeline().addLast(new JoinGroupReqHandler());
+                        nioSocketChannel.pipeline().addLast(new LeaveGroupReqHandler());
+                        nioSocketChannel.pipeline().addLast(new ListGroupMembersReqHandler());
                         nioSocketChannel.pipeline().addLast(new PacketEncoder());
                     }
                 });

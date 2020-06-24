@@ -1,6 +1,5 @@
 package com.yxb;
 
-import com.yxb.attribute.Attributes;
 import com.yxb.codec.PacketDecoder;
 import com.yxb.codec.PacketEncoder;
 import com.yxb.console.ConsoleCommandManager;
@@ -43,6 +42,8 @@ public class Start {
                         socketChannel.pipeline().addLast(new MsgRespHandler());
                         socketChannel.pipeline().addLast(new CreateGroupRespHandler());
                         socketChannel.pipeline().addLast(new JoinGroupRespHandler());
+                        socketChannel.pipeline().addLast(new LeaveGroupRespHandler());
+                        socketChannel.pipeline().addLast(new ListGroupMembersRespHandler());
                         socketChannel.pipeline().addLast(new PacketEncoder());
                     }
                 });

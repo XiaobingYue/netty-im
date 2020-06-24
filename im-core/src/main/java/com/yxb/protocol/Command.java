@@ -15,7 +15,11 @@ public enum  Command {
     LOGOUT_REQ((byte) 7, LogoutReqPacket.class),
     LOGOUT_RESP((byte) 8, LogoutRespPacket.class),
     JOIN_GROUP_REQ((byte) 9, JoinGroupReqPacket.class),
-    JOIN_GROUP_RESP((byte) 10, JoinGroupRespPacket.class);
+    JOIN_GROUP_RESP((byte) 10, JoinGroupRespPacket.class),
+    LEAVE_GROUP_REQ((byte) 11, LeaveGroupReqPacket.class),
+    LEAVE_GROUP_RESP((byte) 12, LeaveGroupRespPacket.class),
+    LIST_GROUP_MEMBERS_REQ((byte) 13, ListGroupMembersReqPacket.class),
+    LIST_GROUP_MEMBERS_RESP((byte) 14, ListGroupMembersRespPacket.class);
 
     private byte type;
 
