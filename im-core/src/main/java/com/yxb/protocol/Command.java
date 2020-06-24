@@ -19,7 +19,9 @@ public enum  Command {
     LEAVE_GROUP_REQ((byte) 11, LeaveGroupReqPacket.class),
     LEAVE_GROUP_RESP((byte) 12, LeaveGroupRespPacket.class),
     LIST_GROUP_MEMBERS_REQ((byte) 13, ListGroupMembersReqPacket.class),
-    LIST_GROUP_MEMBERS_RESP((byte) 14, ListGroupMembersRespPacket.class);
+    LIST_GROUP_MEMBERS_RESP((byte) 14, ListGroupMembersRespPacket.class),
+    GROUP_MSG_REQ((byte) 15, GroupMsgReqPacket.class),
+    GROUP_MSG_RESP((byte) 16, GroupMsgRespPacket.class);
 
     private byte type;
 

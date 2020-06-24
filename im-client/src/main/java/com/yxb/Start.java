@@ -44,6 +44,7 @@ public class Start {
                         socketChannel.pipeline().addLast(new JoinGroupRespHandler());
                         socketChannel.pipeline().addLast(new LeaveGroupRespHandler());
                         socketChannel.pipeline().addLast(new ListGroupMembersRespHandler());
+                        socketChannel.pipeline().addLast(new GroupMsgRespHandler());
                         socketChannel.pipeline().addLast(new PacketEncoder());
                     }
                 });
