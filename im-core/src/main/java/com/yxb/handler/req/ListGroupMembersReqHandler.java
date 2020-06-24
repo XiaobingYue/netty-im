@@ -4,6 +4,7 @@ import com.yxb.protocol.req.ListGroupMembersReqPacket;
 import com.yxb.protocol.resp.ListGroupMembersRespPacket;
 import com.yxb.session.Session;
 import com.yxb.util.SessionUtil;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -11,7 +12,13 @@ import io.netty.channel.group.ChannelGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+@ChannelHandler.Sharable
 public class ListGroupMembersReqHandler extends SimpleChannelInboundHandler<ListGroupMembersReqPacket> {
+    public static final ListGroupMembersReqHandler INSTANCE = new ListGroupMembersReqHandler();
+
+    protected ListGroupMembersReqHandler() {
+    }
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, ListGroupMembersReqPacket msg) throws Exception {
         ListGroupMembersRespPacket respPacket = new ListGroupMembersRespPacket();
@@ -29,7 +36,7 @@ public class ListGroupMembersReqHandler extends SimpleChannelInboundHandler<List
             });
             respPacket.setUserNameList(userNameList);
         }
-        ctx.channel().writeAndFlush(respPacket);
+        ctx.writeAndFlush(respPacket);
 
     }
 }

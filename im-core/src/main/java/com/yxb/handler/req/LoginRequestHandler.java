@@ -5,11 +5,17 @@ import com.yxb.protocol.resp.LoginRespPacket;
 import com.yxb.session.Session;
 import com.yxb.util.SessionUtil;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
+@ChannelHandler.Sharable
 public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReqPacket> {
 
+    public static final LoginRequestHandler INSTANCE = new LoginRequestHandler();
+
+    protected LoginRequestHandler() {
+    }
 
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, LoginReqPacket loginReqPacket) throws Exception {

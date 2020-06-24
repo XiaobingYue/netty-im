@@ -5,11 +5,19 @@ import com.yxb.protocol.resp.GroupMsgRespPacket;
 import com.yxb.session.Session;
 import com.yxb.util.SessionUtil;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
 
+@ChannelHandler.Sharable
 public class GroupMsgReqHandler extends SimpleChannelInboundHandler<GroupMsgReqPacket> {
+
+    public static final GroupMsgReqHandler INSTANCE = new GroupMsgReqHandler();
+
+    protected GroupMsgReqHandler() {
+    }
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, GroupMsgReqPacket msg) throws Exception {
         Channel channel = ctx.channel();

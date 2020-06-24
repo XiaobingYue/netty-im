@@ -5,10 +5,17 @@ import com.yxb.protocol.resp.MsgRespPacket;
 import com.yxb.session.Session;
 import com.yxb.util.SessionUtil;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
+@ChannelHandler.Sharable
 public class MsgRequestHandler extends SimpleChannelInboundHandler<MsgReqPacket> {
+
+    public static final MsgRequestHandler INSTANCE = new MsgRequestHandler();
+
+    protected MsgRequestHandler() {
+    }
 
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, MsgReqPacket msgReqPacket) throws Exception {

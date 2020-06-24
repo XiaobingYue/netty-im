@@ -3,6 +3,8 @@ package com.yxb;
 import com.yxb.codec.PacketDecoder;
 import com.yxb.codec.PacketEncoder;
 import com.yxb.handler.AuthHandler;
+import com.yxb.handler.IMHandler;
+import com.yxb.handler.PacketCodecHandler;
 import com.yxb.handler.Spliter;
 import com.yxb.handler.req.*;
 import io.netty.bootstrap.ServerBootstrap;
@@ -38,17 +40,10 @@ public class Start {
                     @Override
                     protected void initChannel(NioSocketChannel nioSocketChannel) {
                         nioSocketChannel.pipeline().addLast(new Spliter());
-                        nioSocketChannel.pipeline().addLast(new PacketDecoder());
-                        nioSocketChannel.pipeline().addLast("loginRequestHandler",new LoginRequestHandler());
-                        nioSocketChannel.pipeline().addLast("authHandler",new AuthHandler());
-                        nioSocketChannel.pipeline().addLast("logoutReqHandler",new LogoutReqHandler());
-                        nioSocketChannel.pipeline().addLast(new MsgRequestHandler());
-                        nioSocketChannel.pipeline().addLast(new CreateGroupReqHandler());
-                        nioSocketChannel.pipeline().addLast(new JoinGroupReqHandler());
-                        nioSocketChannel.pipeline().addLast(new LeaveGroupReqHandler());
-                        nioSocketChannel.pipeline().addLast(new ListGroupMembersReqHandler());
-                        nioSocketChannel.pipeline().addLast(new GroupMsgReqHandler());
-                        nioSocketChannel.pipeline().addLast(new PacketEncoder());
+                        nioSocketChannel.pipeline().addLast(PacketCodecHandler.INSTANCE);
+                        nioSocketChannel.pipeline().addLast("loginRequestHandler", LoginRequestHandler.INSTANCE);
+                        nioSocketChannel.pipeline().addLast("authHandler", AuthHandler.INSTANCE);
+                        nioSocketChannel.pipeline().addLast( IMHandler.INSTANCE);
                     }
                 });
         serverBootstrap.bind(9999).sync().addListener(future -> {

@@ -4,6 +4,7 @@ import com.yxb.protocol.req.CreateGroupRequestPacket;
 import com.yxb.protocol.resp.CreateGroupRespPacket;
 import com.yxb.util.SessionUtil;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -13,7 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@ChannelHandler.Sharable
 public class CreateGroupReqHandler extends SimpleChannelInboundHandler<CreateGroupRequestPacket> {
+
+    public static final CreateGroupReqHandler INSTANCE = new CreateGroupReqHandler();
+
+    protected CreateGroupReqHandler() {
+    }
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx,
                                 CreateGroupRequestPacket createGroupRequestPacket) throws Exception {
